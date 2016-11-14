@@ -21,13 +21,46 @@ public class MachineCafeTest {
 
     }
 
-    @Test
-    public void machineCafeTest() throws Exception {
-    }
-
     @Test(expectedExceptions = MachineCafeException.class)
     public void askCoffeFailed() throws Exception {
         machine.askCoffe();
+    }
+
+    @Test(expectedExceptions = MachineCafeException.class)
+    public void askTeaFailed() throws Exception {
+        machine.askTea();
+    }
+
+    @Test(expectedExceptions = MachineCafeException.class)
+    public void giveFailed() throws Exception{
+        machine.give(15);
+        machine.give(10);
+    }
+
+    @Test
+    public void giveAndAskCoffe() throws Exception {
+        //TODO Vérifier qu'aucune exception n'est levé
+        machine.give(15);
+        machine.askCoffe();
+    }
+
+    @Test(expectedExceptions = MachineCafeException.class)
+    public void giveFailedWhileWorking() throws Exception {
+        machine.give(15);
+        machine.give(10);
+    }
+
+    @Test
+    public void refund() throws Exception{
+        machine.give(15);
+        assertEquals(machine.getRefund(), 15);
+        assertEquals(machine.getRefund(), 0);
+        machine.give(10);
+        machine.askCoffe();
+        assertEquals(machine.getRefund(), 0);
+        machine.give(15);
+        machine.askCoffe();
+        assertEquals(machine.getRefund(), 5);
     }
 
 }
