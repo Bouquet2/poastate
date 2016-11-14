@@ -39,9 +39,14 @@ public class MachineCafeTest {
 
     @Test
     public void giveAndAskCoffe() throws Exception {
-        //TODO Vérifier qu'aucune exception n'est levé
-        machine.give(15);
-        machine.askCoffe();
+        Exception ex = null;
+        try {
+            machine.give(15);
+            machine.askCoffe();
+        } catch(Exception e){
+            ex = e;
+        }
+        assertEquals(ex, null);
     }
 
     @Test(expectedExceptions = MachineCafeException.class)
