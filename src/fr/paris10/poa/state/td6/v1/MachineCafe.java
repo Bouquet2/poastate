@@ -5,28 +5,31 @@ package fr.paris10.poa.state.td6.v1;
  */
 public class MachineCafe {
     private MachineCafeState state;
+    static int prix = 10;
 
     public MachineCafe() {
         this.state = new MachineCafeAttente(0);
     }
 
-    public boolean askCoffe() {
-        return state.askCoffe(this);
+    public void askCoffe() throws Exception {
+        this.state = state.askCoffe();
     }
 
-    public boolean askTea() {
-        return state.askTea(this);
+    public void askTea() throws Exception {
+        this.state = state.askTea();
     }
 
     public MachineCafeState getState() {
         return state;
     }
 
-    public void give(int n) {
-        state.give(n, this);
+    public void give(int n) throws Exception {
+        this.state = state.give(n);
     }
 
     public void setState(MachineCafeState state) {
         this.state = state;
     }
+
+
 }

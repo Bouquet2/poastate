@@ -6,25 +6,32 @@ package fr.paris10.poa.state.td6.v1;
 public class MachineCafeAttente implements MachineCafeState {
     private int c;
 
-    public MachineCafeAttente(int c) {
+    MachineCafeAttente(int c) {
         this.c = c;
     }
 
     @Override
-    public boolean askCoffe(MachineCafe master) {
-        return false;
+    public MachineCafeState askCoffe() throws Exception {
+        throw new MachineCafeException("Impossible de servir du café");
     }
 
     @Override
-    public  boolean askTea(MachineCafe master) {
-        return false;
+    public MachineCafeState askTea() throws Exception {
+        throw new MachineCafeException("Impossible de servir du tea");
     }
 
     @Override
-    public void give(int n, MachineCafe master) {
+    public MachineCafeState give(int n) throws Exception {
+        if( n < 0 ) {
+            throw new MachineCafeException("Vous ne pouvez pas donner une valeur négative");
+        }
+        System.out.println("Vous avez donné "+ n);
         c = c + n;
-        if(this.c >= 10) {
-            master.setState(new MachineCafeFonctionne(this.c));
+        System.out.print("Argent disponible dans la machine = " + c);
+        if(this.c >= MachineCafe.prix) {
+            return new MachineCafeFonctionne(this.c);
+        } else {
+            return this;
         }
     }
 }
